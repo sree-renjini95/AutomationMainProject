@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [grouping]">
+  <test thread-count="5" name="mytest(failed)">
+    <groups>
+      <run>
+        <include name="smoke"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="testscripts.ManageNewsTest">
+        <methods>
+          <include name="newssearch"/>
+        </methods>
+      </class> <!-- testscripts.ManageNewsTest -->
+    </classes>
+  </test> <!-- mytest(failed) -->
+</suite> <!-- Failed suite [grouping] -->
