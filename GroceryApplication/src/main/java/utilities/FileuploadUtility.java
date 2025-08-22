@@ -14,13 +14,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class FileuploadUtility {
-		//method-fileupload method using sendkeys
 		public void fileuploadmethod(WebElement element,String filepath) {
 			
 			element.sendKeys(filepath);
 		
 		}
-		//method-fileupload method using robotclass
 		public void fileuploadrobot(WebElement element,String filepath) throws AWTException{
 			StringSelection s=new StringSelection(filepath);
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(s,null);

@@ -16,34 +16,37 @@ public WebDriver driver;
 	
 	@FindBy(xpath = "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-category']") WebElement managecategory;
 	@FindBy(xpath = "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news']")WebElement manangenews;
-	@FindBy(xpath = "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin']")WebElement manageadmin;
-	@FindBy(xpath = "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-contact']")WebElement managecontact;
-
-	//for admin logout
+	@FindBy(xpath = "//a[@class='small-box-footer' and contains(@href,'list-admin')]") WebElement manageadmin;
 	@FindBy(xpath = "//a[@data-toggle='dropdown']") WebElement clickadmin;
 	@FindBy(xpath = "//a[@href='https://groceryapp.uniqassosiates.com/admin/logout']")WebElement logoutbutton;
+	@FindBy(xpath = "//input[@placeholder='Username']")WebElement usernamefield;
 	 
-	public void clickonmanagecategory() {
+	public CategoryPage clickonmanagecategory() {
 		managecategory.click();
+		return new CategoryPage(driver);
 	}
-	public void clickonmanagenews() {
+	public ManageNewsPage clickonmanagenews() {
 		manangenews.click();
+		return new ManageNewsPage(driver);
 	}
 	
-	public void clickmanageadmin() {
+	public AdminUsersPage clickmanageadmin() {
 		manageadmin.click();
-	}
-	public void clickmanagecontact() {
-		managecontact.click();
+		return new AdminUsersPage(driver);
 	}
 	
-	public void clickhomeadmin() {
+	public HomePage clickhomeadmin() {
 		clickadmin.click();
+		return new HomePage(driver);
 	}
 	
-	public void clicklogout() {
+	public HomePage clicklogout() {
 		logoutbutton.click();
+		return new HomePage(driver);
 		
+	}
+	public boolean isLogoutSuccess() {
+		return usernamefield.isDisplayed();
 	}
 }
 

@@ -4,17 +4,16 @@
   <parameter name="browser" value="chrome"/>
   <listeners>
     <listener class-name="listeners.Listeners"/>
-    <listener class-name="listeners.RetryListener"/>
   </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="testscripts.AdminUsersTest">
+      <class name="testscripts.CategoryTest">
         <methods>
           <include name="addnewcategorywithValidDetails"/>
           <include name="driverQuit"/>
           <include name="initializebrowser"/>
         </methods>
-      </class> <!-- testscripts.AdminUsersTest -->
+      </class> <!-- testscripts.CategoryTest -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

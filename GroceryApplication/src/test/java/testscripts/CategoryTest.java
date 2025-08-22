@@ -11,88 +11,78 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import automationcore.Base;
+import constants.Constant;
+import constants.Messages;
 import pages.CategoryPage;
 import pages.HomePage;
 import pages.LoginPage;
+import utilities.ExcelUtility;
+import utilities.GeneralUtilities;
 
 public class CategoryTest extends Base {
+	//concept of aggregation
+	LoginPage login;
+	HomePage home;
+	CategoryPage category;
 	@Test
 	
 	public void addnewcategorywithValidDetails() throws IOException {
-		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagecategory();
-		CategoryPage categorypage=new CategoryPage(driver);
-		categorypage.clickonnewbutton();
-		categorypage.entercategory();
-		categorypage.adddiscount();
-		categorypage.fileupload();
+		 String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		 String password=ExcelUtility.readStringData(1, 1, "loginpage");
 		
+		 LoginPage login=new LoginPage(driver);
+		 login.enterUsername(username).enterPassword(password);
+		 home=login.clickOnSignInButton();
+		 category=home.clickonmanagecategory().clickonnewbuttontocreateacategory().entercategory(Constant.categoryvalue).adddiscount().fileupload();
+		 
 		 JavascriptExecutor js=(JavascriptExecutor)driver;
 		 WebElement savebutton=driver.findElement(By.xpath("//button[@class='btn btn-danger']"));
-		js.executeScript("arguments[0].click();",savebutton);
-//		categorypage.clicksavebutton();
-		
-		boolean successalertmessagedisplayed=categorypage.isCategoryAddedSuccessMessageDisplayed();
-		Assert.assertTrue(successalertmessagedisplayed, "Success message not displayed after adding category.");
-
-		
-		
+		 js.executeScript("arguments[0].click();",savebutton);
+	
+		 
+		 boolean successalertmessagedisplayed=category.isCategoryAddedSuccessMessageDisplayed();
+		 Assert.assertTrue(successalertmessagedisplayed,Messages.CATEGORYCREATION_ERROR);
+	
 	}
 	
 	@Test
 	public void searchcategoryaddeddproducts() throws IOException {
 		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagecategory();
-		CategoryPage categorypage=new CategoryPage(driver);
-		categorypage.clicksearchbutton();
-		categorypage.entersearchproductname();
-		categorypage.categorysearchbutton();
-		boolean iscategorysearchnotfound=categorypage.isNoNewsFoundDisplayed();
-		Assert.assertTrue(iscategorysearchnotfound,"......no  search found.....");
-		
-		
-		
-		
-		
-	}
+		String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		String password=ExcelUtility.readStringData(1, 1, "loginpage");
+		login.enterUsername(username).enterPassword(password);
+		home=login.clickOnSignInButton();
+		category=home.clickonmanagecategory().clicksearchbutton().entersearchproductname().categorysearchbutton();
+		boolean iscategorysearchnotfound=category.isNoCategoryFoundDisplayed();
+		Assert.assertTrue(iscategorysearchnotfound,Messages.SEARCHCATEGORY_ERROR);
+
+		}
 	@Test
 	public void editcategorylist() throws IOException {
-		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagecategory();
-		CategoryPage categorypage=new CategoryPage(driver);
-		categorypage.clickoneditcategorybutton();
-		categorypage.entercategory();
-		categorypage.fileupload();
-//		categorypage.clickupdatecategory();
-		JavascriptExecutor js=(JavascriptExecutor)driver;
+		login=new LoginPage(driver);
+		 String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		 String password=ExcelUtility.readStringData(1, 1, "loginpage");
+		 login.enterUsername(username).enterPassword(password);
+		 home=login.clickOnSignInButton();
+		 category=home.clickonmanagecategory().clickoneditcategorybutton().entercategory(Constant.editcategoryvalue).fileupload();
+		 JavascriptExecutor js=(JavascriptExecutor)driver;
 		 WebElement updatebutton=driver.findElement(By.xpath("//button[@class='btn btn-danger']"));
-		js.executeScript("arguments[0].click();",updatebutton);
-		
-		
-	}
+		 js.executeScript("arguments[0].click();",updatebutton);
+		 boolean updatealertmessagedisplayed=category.isCategoryProductUpdatedSuccesfullymessageDisplayed();
+		 Assert.assertTrue(updatealertmessagedisplayed,Messages.SUCCESFULLUPDATEDCATEGORY_VALUE);
+	
+		}
 	
 	@Test
 	public void deletecategory() throws IOException {
 		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagecategory();
-		CategoryPage categorypage=new CategoryPage(driver);
-		
-		
-		categorypage.clickondeletebutton();
-		boolean deletedalertmessagedisplayed=categorypage.isCategoryProductDeletedmessageDisplayed();
-		Assert.assertTrue(deletedalertmessagedisplayed, "Category Deleted Successfully");
-		
-		
-		
-	}
+		String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		 String password=ExcelUtility.readStringData(1, 1, "loginpage");
+		 login.enterUsername(username).enterPassword(password);
+		 home=login.clickOnSignInButton();
+		 category=home.clickonmanagecategory().clickondeletebutton();
+		 boolean deletedalertmessagedisplayed=category.isCategoryProductDeletedmessageDisplayed();
+		 Assert.assertTrue(deletedalertmessagedisplayed,Messages.deletedcategoryvaluealertsuccesfully);
 	
-
+		}
 }

@@ -5,25 +5,18 @@
 <listeners>
 		
 		<listener class-name="listeners.Listeners"></listener>
-	<listener class-name="listeners.RetryListener"></listener>
+		<!--<listener class-name="listeners.RetryListener"></listener>-->
 	</listeners>
 
   <test thread-count="5" name="Test">
     <classes>
-     <!--
-      <class name="testscripts.ManageNewsTest"> <methods><include name="newssearch"></include></methods></class>
-      <class name="testscripts.CategoryTest"><methods><include name="deletecategory"></include></methods></class>
-       <class name="testscripts.ManageNewsTest"><methods><include name="editnews"></include></methods></class>
-        <class name="testscripts.CategoryTest"><methods><include name="editcategorylist"></include></methods></class>
-        <class name="testscripts.AdminUsersTest"></class>
-      -->
-      
+     <class name="testscripts.LoginTest"></class> 
+    <class name="testscripts.AdminUsersTest"></class>
+    <class name="testscripts.CategoryTest"></class>
+    <class name="testscripts.ManageNewsTest"></class> 
+    <class name="testscripts.HomeTest"></class>
+   
        
-      <class name="testscripts.ManageContactTest"></class>
-         
-     
-    
-      
-    </classes>
+   </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

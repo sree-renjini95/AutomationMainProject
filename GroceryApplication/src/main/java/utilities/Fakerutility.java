@@ -4,13 +4,16 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.Number;
 import com.github.javafaker.PhoneNumber;
 
-//fakerutility-generate fake data's using "fakerclass"
 
 public class Fakerutility {
 	Faker faker=new Faker();
 	
-	public String firstname() {
-		return faker.name().firstName();
+	public String username() {
+		return faker.name().username();
+	}
+	
+	public String password() {
+		return faker.internet().password();
 	}
 	
 	public String generatename() {
@@ -39,4 +42,5 @@ public class Fakerutility {
 	   return faker.number().numberBetween(5, 10);
 	   
    }
+ 
 }

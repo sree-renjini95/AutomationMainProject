@@ -1,5 +1,8 @@
 package utilities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,15 +17,26 @@ public class GeneralUtilities {
 		WebElement selectedElement = object.getFirstSelectedOption();
 		return selectedElement.getText();
 	}
+	
 	public void clickJavaScriptExecutor(WebElement element, WebDriver driver) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click()", element);
 	}
-	public void scrollJavaScriptExecutor(WebElement element,WebDriver driver) {
+	
+	public void scrollJavaScriptExecutorRightXaxis(WebElement element,WebDriver driver) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		 js.executeScript("window.scrollBy(500,0)", "");
+	}
+	public void scrollJavaScriptExecutorLeftXaxis(WebElement element,WebDriver driver) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		 js.executeScript("window.scrollBy(-500)", "");
+	}
+	public void scrollJavaScriptExecutorRightYaxis(WebElement element,WebDriver driver) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		 js.executeScript("window.scrollBy(0,350)", "");
+	}
+	public void scrollJavaScriptExecutorLeftYaxis(WebElement element,WebDriver driver) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		 js.executeScript("window.scrollBy(0,-350)", "");
 	}
 	
@@ -55,4 +69,21 @@ public class GeneralUtilities {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
     }
+    public void acceptAlert() {
+        driver.switchTo().alert().accept();
+    }
+
+    public void dismissAlert() {
+        driver.switchTo().alert().dismiss();
+    }
+
+    public String getAlertText() {
+        return driver.switchTo().alert().getText();
+    }
+    
+    public String generateCurrentDateAndTime() {
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyhhmmss");
+		return formatter.format(date);
+	}
 }

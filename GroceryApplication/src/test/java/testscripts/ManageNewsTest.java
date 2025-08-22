@@ -8,62 +8,62 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import automationcore.Base;
-
+import constants.Constant;
+import constants.Messages;
+import pages.CategoryPage;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.ManageNewsPage;
+import utilities.ExcelUtility;
 
 public class ManageNewsTest extends Base {
-	@Test(enabled = false) //it will not work
+	LoginPage login;
+	HomePage home;
+	ManageNewsPage news;
+	@Test(enabled = true) //it will not work if we set false
 	public void addNewNewswithDetails() throws IOException {
-		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagenews();
-		ManageNewsPage newspage=new ManageNewsPage(driver);
-		newspage.clicknewbutton();
-		newspage.enternews();
-		newspage.clicksavebutton();
+		 String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		 String password=ExcelUtility.readStringData(1, 1, "loginpage");
+		 LoginPage login=new LoginPage(driver);
+		 login.enterUsername(username).enterPassword(password);
+		 home=login.clickOnSignInButton();
+		 news=home.clickonmanagenews().clicknewbutton().enternews(Constant.newsfieldvalue).clicksavebutton();
 		
-		
-	}
+}
 	@Test(groups = "smoke")
 	public void newssearch() throws IOException {
-		ManageNewsPage newspage=new ManageNewsPage(driver);
 		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagenews();
-		newspage.clicksearchbutton();
-		newspage.entersearchnewsfield();
-		newspage.clicksearchnews();
-		 
-		boolean isnewssearchnotfound=newspage.isNoNewsFoundDisplayed();
-		Assert.assertTrue(isnewssearchnotfound,"......no news search found.....");
-		
-		
-		
-	}
+		 String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		 String password=ExcelUtility.readStringData(1, 1, "loginpage");
+		 login.enterUsername(username).enterPassword(password);
+		 home=login.clickOnSignInButton();
+		 news=home.clickonmanagenews().clicksearchbutton().entersearchnewsfield().clicksearchnews();
+		 boolean isnewssearchnotfound=news.isNoNewsFoundDisplayed();
+		 Assert.assertTrue(isnewssearchnotfound,Messages.NEWSSEARCH_ERROR);
+
+		}
 	@Test
 	public void editnews() throws IOException {
-		ManageNewsPage newspage=new ManageNewsPage(driver);
-		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagenews();
-		newspage.clickeditnews();
-		newspage.enternews();
-		newspage.clickupdatebutton();
+		
+		 String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		 String password=ExcelUtility.readStringData(1, 1, "loginpage");
+		login=new LoginPage(driver);
+		login.enterUsername(username).enterPassword(password);
+		home=login.clickOnSignInButton();
+		news=home.clickonmanagenews().clickeditnews().enternews(Constant.editnewsvalue).clickupdatebutton();
+		boolean updatealertmessagedisplayed=news.isManageNewsUpdatedSuccesfullymessageDisplayed();
+		Assert.assertTrue(updatealertmessagedisplayed,Messages.SUCCESFULLUPDATENEWS);
 	}
 	@Test
 	public void deletenews() throws IOException {
-		ManageNewsPage newspage=new ManageNewsPage(driver);
-		LoginPage login=new LoginPage(driver);
-		login.loginbyusingexceldata();
-		HomePage homepage=new HomePage(driver);
-		homepage.clickonmanagenews();
-		newspage.clickdeletenews();
-		
+		String username=ExcelUtility.readStringData(1, 0, "loginpage");
+		 String password=ExcelUtility.readStringData(1, 1, "loginpage");
+		login=new LoginPage(driver);
+		login.enterUsername(username).enterPassword(password);
+		home=login.clickOnSignInButton();
+		news=home.clickonmanagenews().clickdeletenews();
+		boolean alertmessagedisplayedonsuccesfulldeletion=news.isManageNewsDeletedSuccesfullymessageDisplayed();
+		Assert.assertTrue(alertmessagedisplayedonsuccesfulldeletion,Messages.SUCCESFULLDELETENEWSMESSAGE);
 	}
 
 }

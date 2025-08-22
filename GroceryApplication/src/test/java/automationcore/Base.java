@@ -42,11 +42,8 @@ public class Base {
 		else {
 			throw new Exception("Invalid Browser");
 		}
-		
-//		driver.get("https://groceryapp.uniqassosiates.com/admin/login");
 		driver.get(prop.getProperty("url"));
 		driver.manage().window().maximize();
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		wait.setImplicitWait(driver);
 	}
 	@AfterMethod
@@ -57,14 +54,11 @@ public class Base {
 	ScreenshotUtility screenShot=new ScreenshotUtility();
 	screenShot.getScreenshot(driver, iTestResult.getName());
 	}
-	driver.quit();
+//	driver.quit();
 
 	}
 	
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }
